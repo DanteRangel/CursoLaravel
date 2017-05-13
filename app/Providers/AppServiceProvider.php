@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Cotizador\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
