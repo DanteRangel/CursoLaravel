@@ -4,6 +4,7 @@ namespace Cotizador\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cotizador\Usuario;
+use Session;
 class UsuariosController extends Controller
 {
     /**
@@ -13,6 +14,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
+        //return Usuario::all();
         return view('User.index',['usuarios'=>Usuario::all()]);
     }
 
@@ -35,11 +37,19 @@ class UsuariosController extends Controller
     public function store(Request $request)
     {
 
+        $this->validate($request,[
+            'nombre'=>'string|required',
+            'telefono'=>'string|required',
+            'correo'=>'email|required|unique:Usuario',
+            'password'=>'string|required',
+            ]);
+
         Usuario::create([
             'nombre'=>$request->nombre,
             'correo'=>$request->correo,
             'telefono'=>$request->telefono,
-            'password'=>bcrypt($request->password)]);   
+            'password'=>bcrypt($request->password)]);
+        $request->session()->flash('create','El ususario '.$request->nombre.' ha sido creado satisfactoriamente');
         return redirect('User');
     }
 
@@ -64,7 +74,7 @@ class UsuariosController extends Controller
     {
         //return Usuario::find($id);
         
-    return view('User.edit',['user'=>Usuario::find($id) ] );
+    return view('User.edit',['user'=>Usuario::find($id)]);
     }
 
     /**
@@ -76,7 +86,20 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'nombre'=>'string|required',
+            'telefono'=>'string|required',
+            'correo'=>'email|required|unique:Usuario,correo,'.$id,
+            'password'=>'string|required',
+        ]);  
+        $user=Usuario::find($id);
+        $user->nombre=$request->nombre;
+        $user->telefono=$request->telefono;
+        $user->correo=$request->correo;
+        $user->password=bcrypt($request->password);
+        $user->save();
+        $request->session()->flash('update','El ususario '.$request->nombre.' ha sido modificado con exito');
+        return redirect('User');
     }
 
     /**
@@ -85,8 +108,14 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,Request $request)
     {
-        //
+    $user=Usuario::find($id);
+    $request->session()->flash('delete','El ususario '.$user->nombre.' ha sido eliminado con exito');
+    //Session::flash('delete','El ususario '.$user->nombre.' ha sido eliminado con exito');
+    $user->delete();
+    ///Usuario::destroy(array());   ids
+    return redirect('User');
+
     }
 }

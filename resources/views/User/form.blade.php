@@ -1,6 +1,3 @@
-
- {{ csrf_field() }}
- 
 <div class="form-group">
 	<label for="">Nombre</label>
 	<input type="text" class="form-control" name="nombre">
