@@ -2,28 +2,24 @@
 
 namespace Cotizador;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
+    protected $table='Usuario';
+    public $fillable=['nombre','correo','telefono','tipo_usuario','id_empresa'];
+    public $hidden=['password','remember_token'];
+    
+  public $timestamps =false;
+    public function empresa(){
+    	return $this->belongsTo('Cotizador\Empresa','id_empresa','id');
+    }
+    public function permiso(){
+    	return $this->belongsTo('Cotizador\Tipo_Usuario','tipo_usuario','id');
+    }
+    public function cotizaciones(){
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    	return $this->hasMany('Cotizador\Cotizacion','id_usuario','id');
+    }
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
 }

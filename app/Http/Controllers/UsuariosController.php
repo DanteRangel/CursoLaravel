@@ -3,7 +3,7 @@
 namespace Cotizador\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cotizador\Usuario;
+use Cotizador\User as Usuario;
 use Session;
 class UsuariosController extends Controller
 {

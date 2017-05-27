@@ -36,6 +36,9 @@
 						<th>Nombre</th>
 						<th>Correo</th>
 						<th>Teléfono</th>
+						<th>Tipo Usuario</th>
+						<th>Empresa Asociada</th>
+						<th>Cotizaciones ralizadas</th>
 						<th>Acciones</th>
 					</thead>
 					<tbody>
@@ -44,6 +47,10 @@
 								<td>{{$usuario->nombre}}</td>
 								<td>{{$usuario->correo}}</td>
 								<td>{{$usuario->telefono}}</td>
+								<td>{{$usuario->permiso->nombre}}</td>
+
+								<td>{{$usuario->empresa->nombre}}</td>
+								<td>{{(count($usuario->cotizaciones)==0)?'Ninguna':count($usuario->cotizaciones)}}</td>
 								<td><span class="btn btn-info fa fa-edit" onclick="editar('{{$usuario->id}}')"></span>
 								<span class="btn btn-danger fa fa-trash-o" onclick="eliminar('{{$usuario->id}}')"></span></td>
 							</tr>

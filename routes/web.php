@@ -11,6 +11,7 @@
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
@@ -56,4 +57,10 @@ Route::get('usuarios',function(){
 	return Cotizador\Usuario::all();
 });
 //Route::get('User','UsuariosController@index');
-Route::resource('User','UsuariosController');
+Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
+	Route::resource('User','UsuariosController');
+});
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');

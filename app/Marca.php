@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Marca extends Model
 {
     protected $table='Marca';
-    protected $fillable=['nombre','descripcion'];
-    protected $hidden=[];
+    public $fillable=['nombre','descripcion'];
+    
+  public $timestamps =false;
 
     public function productos(){
-    	$this->hasMany('Cotizador\Producto','id_marca','id');
+    	return $this->hasMany('Cotizador\Producto','id_marca','id');
     }
 }
