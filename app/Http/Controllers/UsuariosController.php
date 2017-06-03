@@ -50,7 +50,7 @@ class UsuariosController extends Controller
             'telefono'=>$request->telefono,
             'password'=>bcrypt($request->password)]);
         $request->session()->flash('create','El ususario '.$request->nombre.' ha sido creado satisfactoriamente');
-        return redirect('User');
+        return redirect('/admin/User');
     }
 
     /**
@@ -99,7 +99,7 @@ class UsuariosController extends Controller
         $user->password=bcrypt($request->password);
         $user->save();
         $request->session()->flash('update','El ususario '.$request->nombre.' ha sido modificado con exito');
-        return redirect('User');
+        return redirect('/admin/User');
     }
 
     /**
@@ -115,7 +115,7 @@ class UsuariosController extends Controller
     //Session::flash('delete','El ususario '.$user->nombre.' ha sido eliminado con exito');
     $user->delete();
     ///Usuario::destroy(array());   ids
-    return redirect('User');
+    return redirect('/admin/User');
 
     }
 }

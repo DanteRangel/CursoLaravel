@@ -26,7 +26,7 @@
 		</div>
 		<div class="row text-left" style="margin-top:2em;">
 			<div class="col-md-8 col-sm-8 col-lg8 col-xs-12 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-				<a class="btn btn-default" href="{{url('admin/User/create')}}" >Crear nuevo usuario</a>
+				<a class="btn btn-default" href="{{url('/admin/Marca/create')}}" >Crear nueva marca</a>
 			</div>
 		</div>
 		<div class="row">
@@ -34,25 +34,15 @@
 				<table class="table table-responsive">
 					<thead>
 						<th>Nombre</th>
-						<th>Correo</th>
-						<th>Teléfono</th>
-						<th>Tipo Usuario</th>
-						<th>Empresa Asociada</th>
-						<th>Cotizaciones ralizadas</th>
-						<th>Acciones</th>
+						<th>Descripción</th>
 					</thead>
 					<tbody>
-						@foreach($usuarios as $usuario)
+						@foreach($marcas as $marca)
 							<tr>
-								<td>{{$usuario->nombre}}</td>
-								<td>{{$usuario->correo}}</td>
-								<td>{{$usuario->telefono}}</td>
-								<td>{{$usuario->permiso->nombre}}</td>
-
-								<td>{{$usuario->empresa->nombre}}</td>
-								<td>{{(count($usuario->cotizaciones)==0)?'Ninguna':count($usuario->cotizaciones)}}</td>
-								<td><span class="btn btn-info fa fa-edit" onclick="editar('{{$usuario->id}}')"></span>
-								<span class="btn btn-danger fa fa-trash-o" onclick="eliminar('{{$usuario->id}}')"></span></td>
+								<td>{{$marca->nombre}}</td>
+								<td>{{$marca->descripcion}}</td>
+								<td><span class="btn btn-info fa fa-edit" onclick="editar('{{$marca->id}}')"></span>
+								<span class="btn btn-danger fa fa-trash-o" onclick="eliminar('{{$marca->id}}')"></span></td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -70,12 +60,12 @@
 <script>
 
 	function editar(id){
-		window.location.href="{{url('admin/User')}}/"+id+'/edit';
+		window.location.href="{{url('/admin/Marca')}}/"+id+'/edit';
 
 	}
 	function eliminar(id){
 
-		$('#form_delete').attr('action','{{url("admin/User")}}/'+id);
+		$('#form_delete').attr('action','{{url("/admin/Marca")}}/'+id);
 		$('#form_delete').submit();
 
 	}

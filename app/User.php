@@ -2,12 +2,13 @@
 
 namespace Cotizador;
 
-use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
 {
     protected $table='Usuario';
-    public $fillable=['nombre','correo','telefono','tipo_usuario','id_empresa'];
+    public $fillable=['nombre','correo','telefono','tipo_usuario','id_empresa','password'];
     public $hidden=['password','remember_token'];
     
   public $timestamps =false;

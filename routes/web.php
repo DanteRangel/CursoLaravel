@@ -58,9 +58,21 @@ Route::get('usuarios',function(){
 });
 //Route::get('User','UsuariosController@index');
 Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
+		
 	Route::resource('User','UsuariosController');
+	Route::resource('Marca','MarcaController');
 });
 
 
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/Sesiones',function(){
+	return Session::all();
+});
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
