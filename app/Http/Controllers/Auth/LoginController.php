@@ -37,8 +37,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
     protected $username = 'correo';
-      public function loginUsername()
+      public function username()
     {
-        return property_exists($this, 'username') ? $this->username : 'email';
+        return "correo";
     }
 }

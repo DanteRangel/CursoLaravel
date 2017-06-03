@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('/css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
      <link href="{{asset('fonts/css/font-awesome.min.css')}}" rel="stylesheet">
+     <link href="{{asset('css/jasny-bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('css')
 </head>
@@ -81,6 +82,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script> 
+    <script src="{{ asset('js/jasny-bootstrap.min.js') }}"></script> 
     @yield('js')
 </body>
 </html>

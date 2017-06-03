@@ -3,10 +3,8 @@
 namespace Cotizador\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cotizador\Producto;
-use Cotizador\Marca;
 use Cotizador\Grupo;
-class ProductController extends Controller
+class GrupoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('Producto.index',['productos'=>Producto::all()]);
+        return view('Grupo.index',['grupos'=>Grupo::all()]);
     }
 
     /**
@@ -25,8 +23,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('Producto.create',[
-            'marcas'=>Marca::all(),'grupos'=>Grupo::all()]);
+        return view('Grupo.create');
     }
 
     /**
@@ -37,20 +34,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //return base64_encode($request->prueba);
-        //return $request->prueba->extension();//->extension();
         $this->validate($request,[
-            'costo'=>'required|numeric',
-            'precio'=>'required|numeric',
-            'nombre'=>'required|string',
-            'descripcion'=>'required|string',
-            'file_image'=>'required|image',
-            'id_marca'=>'required|integer',
-            'id_grupo'=>'required|integer',
-            'stock'=>'required|integer'
+            'nombre'=>'required|string'
             ]);
-
-
+        Grupo::create([
+            'nombre'=>$request->nombre
+            ]);
+        $request->session()->flash('create','El grupo '.$request->nombre.' ha sido guardado exitosamente');
+        return redirect('/admin/Grupo');
     }
 
     /**
@@ -72,7 +63,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('Grupo/edit',['grupo'=>Grupo::find($id)]);
     }
 
     /**
@@ -84,7 +75,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+     $this->validate($request,[
+            'nombre'=>'required|string'
+            ]);
+        $grupo=Grupo::find($id);
+        $grupo->nombre=$request->nombre;
+        $request->session()->flash('update','El grupo '.$request->nombre.' ha sido guardado exitosamente');
+        $grupo->save();
+        return redirect('/admin/Grupo');   
     }
 
     /**
@@ -93,8 +91,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $grupo=Grupo::find($id);
+
+        $request->session()->flash('delete','El grupo '.$grupo->nombre.' ha sido eliminado exitosamente');
+        $grupo->delete();
+        return redirect('admin/Grupo');
     }
 }
