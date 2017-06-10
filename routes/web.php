@@ -21,8 +21,10 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 	Route::resource('User','UsuariosController');
 	Route::resource('Marca','MarcaController');
 	Route::resource('Grupo','GrupoController');
+	Route::resource('Empresa','EmpresaController');
 
 	Route::resource('Producto','ProductController');
+	Route::resource('Direccion','DireccionController');
 });
 
 Route::get('/Sesiones',function(){

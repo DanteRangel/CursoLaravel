@@ -2,12 +2,13 @@
 
 @section('content') 
 <div class="container">
-	{!!Form::open(['url'=>'admin/Producto', 'method' => 'POST','enctype'=>'multipart/form-data'])!!}
+	{!!Form::open(['url'=>'admin/Producto/'.$producto->id, 'method' => 'POST','enctype'=>'multipart/form-data'])!!}
+	{{method_field('PUT')}}
 	<div class="row">
 		<div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
 			<div class="fileinput fileinput-new" data-provides="fileinput">
 				<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-					<img src="http://via.placeholder.com/140x140" alt="...">
+					<img src="{{($producto->img!='')?$producto->img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYFKq6PmTvLnYZcEot6o88UR_nRWEk4QeagdNZf_AmecTCsFM5-U-Hnw'}}" alt="...">
 				</div>
 				<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
 				<div>
@@ -26,7 +27,7 @@
 				<div class="col-md-6 col-xs-12 col-sm-6 col-lg-6">
 					<div class="form-group {{$errors->has('nombre')?'has-error':''}}">
 						{!!Form::label('nombre','Nombre')!!}
-						{!!Form::text('nombre',old('nombre'),['class'=>'form-control' , 'placeholder'=>'Escribe tu nonbre'])!!}
+						{!!Form::text('nombre',$producto->nombre,['class'=>'form-control' , 'placeholder'=>'Escribe tu nonbre'])!!}
 						@if($errors->has('nombre'))
 						<span class="help-error">
 							<strong>{{$errors->first('nombre')}}</strong>
@@ -37,7 +38,7 @@
 				<div class="col-md-6 col-xs-12 col-sm-6 col-lg-6">
 					<div class="form-group {{$errors->has('descripcion')?'has-error':''}}">
 						{!!Form::label('descripcion','Descripción')!!}
-						{!!Form::text('descripcion',old('descripcion'),['class'=>'form-control' , 'placeholder'=>'Escribe tu nonbre'])!!}
+						{!!Form::text('descripcion',$producto->descripcion,['class'=>'form-control' , 'placeholder'=>'Escribe tu nonbre'])!!}
 						@if($errors->has('descripcion'))
 						<span class="help-error">
 							<strong>{{$errors->first('descripcion')}}</strong>
@@ -52,7 +53,7 @@
 						{!!Form::label('marca','Marca')!!}
 						<select name="id_marca" id="id_marca" class="form-control">
 							@foreach($marcas as $marca)
-							<option value="{{$marca->id}}">{{$marca->nombre}}</option>
+							<option {{($marca->id==$producto->id_marca)?'selected':''}} value="{{$marca->id}}">{{$marca->nombre}}</option>
 							@endforeach
 						</select>	
 					</div>
@@ -62,7 +63,7 @@
 						{!!Form::label('grupo','Grupo')!!}
 						<select name="id_grupo" id="id_grupo" class="form-control">
 							@foreach($grupos as $grupo)
-							<option value="{{$grupo->id}}">{{$grupo->nombre}}</option>
+							<option {{($grupo->id==$producto->id_grupo)?'selected':''}} value="{{$grupo->id}}">{{$grupo->nombre}}</option>
 							@endforeach
 						</select>			
 					</div>
@@ -72,7 +73,7 @@
 				<div class="col-md-6 col-xs-12 col-sm-6 col-lg-6">
 					<div class="form-group {{$errors->has('costo')?'has-error':''}}">
 						{!!Form::label('costo','Costo')!!}
-						{!!Form::number('costo',old('costo'),['class'=>'form-control' , 'placeholder'=>'Escribe el costo','step'=>'any'])!!}
+						{!!Form::number('costo',$producto->costo,['class'=>'form-control' , 'placeholder'=>'Escribe el costo','step'=>'any'])!!}
 						@if($errors->has('costo'))
 						<span class="help-error">
 							<strong>{{$errors->first('costo')}}</strong>
@@ -83,7 +84,7 @@
 				<div class="col-md-6 col-xs-12 col-sm-6 col-lg-6">
 					<div class="form-group {{$errors->has('precio')?'has-error':''}}">
 						{!!Form::label('precio','Precio')!!}
-						{!!Form::number('precio',old('precio'),['class'=>'form-control' , 'placeholder'=>'Escribe el precio','step'=>'any'])!!}
+						{!!Form::number('precio',$producto->precio,['class'=>'form-control' , 'placeholder'=>'Escribe el precio','step'=>'any'])!!}
 						@if($errors->has('precio'))
 						<span class="help-error">
 							<strong>{{$errors->first('precio')}}</strong>
@@ -96,7 +97,7 @@
 				<div class="col-md-6 col-xs-12 col-sm-6 col-lg-6">
 					<div class="form-group {{$errors->has('stock')?'has-error':''}}">
 						{!!Form::label('stock','Stock')!!}
-						{!!Form::number('stock',old('stock'),['class'=>'form-control' , 'placeholder'=>'Escribe el stock','step'=>'any'])!!}
+						{!!Form::number('stock',$producto->stock,['class'=>'form-control' , 'placeholder'=>'Escribe el stock','step'=>'any'])!!}
 						@if($errors->has('stock'))
 						<span class="help-error">
 							<strong>{{$errors->first('stock')}}</strong>

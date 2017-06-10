@@ -46,13 +46,25 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
-        ],
+            'visibility' => 'public',
+        ],/*
+        'servidor' => [
+            'driver' => 'local',
+            'root' => env('PATH_public'),
+            'visibility' => 'public',
+        ],*/
+
 
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+        ],
+
+        'escritorio' => [
+            'driver' => 'local',
+            'root' => '/home/danterangelrobles/Escritorio/storage',
         ],
 
         's3' => [

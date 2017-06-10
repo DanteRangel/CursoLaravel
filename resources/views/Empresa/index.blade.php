@@ -4,7 +4,7 @@
 
 		<div class="row text-left" style="margin-top:2em;">
 			<div class="col-md-8 col-sm-8 col-lg8 col-xs-12 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-				<a class="btn btn-default" href="{{url('admin/Grupo/create')}}" >Crear nuevo usuario</a>
+				<a class="btn btn-default" href="{{url('admin/Empresa/create')}}" >Crear nueva empresa</a>
 			</div>
 		</div>
 		<div class="row">
@@ -12,16 +12,21 @@
 				<table class="table table-responsive">
 					<thead>
 						<th>Nombre</th> 
+						<th>Razón social</th>
 						<th>Acciones</th>
 					</thead>
 					<tbody>
-						@foreach($grupos as $grupo)
-							<tr>
-								<td>{{$grupo->nombre}}</td>
-								<td><span class="btn btn-info fa fa-edit" onclick="editar('{{$grupo->id}}')"></span>
-								<span class="btn btn-danger fa fa-trash-o" onclick="eliminar('{{$grupo->id}}')"></span></td>
-							</tr>
+						@foreach($empresas as $empresa)
+						<tr>
+							<td>{{$empresa->nombre}}</td>
+							<td>{{$empresa->razon_social}}</td>
+							<td><span class="btn btn-info fa fa-edit" onclick="editar('{{$empresa->id}}')"></span>
+								<span class="btn btn-danger fa fa-trash-o" onclick="eliminar('{{$empresa->id}}')"></span></td>
+						</tr>
+
+
 						@endforeach
+						
 					</tbody>
 				</table>
 
@@ -37,12 +42,12 @@
 <script>
 
 	function editar(id){
-		window.location.href="{{url('admin/Grupo')}}/"+id+'/edit';
+		window.location.href="{{url('admin/Empresa')}}/"+id+'/edit';
 
 	}
 	function eliminar(id){
 
-		$('#form_delete').attr('action','{{url("admin/Grupo")}}/'+id);
+		$('#form_delete').attr('action','{{url("admin/Empresa")}}/'+id);
 		$('#form_delete').submit();
 
 	}

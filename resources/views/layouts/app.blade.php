@@ -76,7 +76,29 @@
                 </div>
             </div>
         </nav>
+        <div class="row" style="margin-top:1em;">
+            <div class="col-md-8 col-sm-8 col-lg8 col-xs-12 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                @if(Session::has('update'))
+                <div class="alert alert-info">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Success!</strong> {{Session::get('update')}}
+                </div>
+                @endif
+                @if(Session::has('delete'))
+                    <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>Success!</strong> {{Session::get('delete')}}
+                    </div>
+                @endif
+                @if(Session::has('create'))
 
+                    <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>Success!</strong> {{Session::get('create')}}
+                    </div>
+                @endif
+            </div>
+        </div>
         @yield('content')
     </div>
 

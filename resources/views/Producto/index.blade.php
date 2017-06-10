@@ -41,7 +41,7 @@
 @section('js')
 	<script>
 		function eliminar(id){
-			$('#delete_form').attr('action','{{url("admin/Producto/")}}'+id);
+			$('#delete_form').attr('action','{{url("admin/Producto/")}}/'+id);
 			$('#delete_form').submit();
 		}
 		function editar(id){
