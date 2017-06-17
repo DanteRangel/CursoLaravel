@@ -5,6 +5,7 @@ namespace Cotizador\Http\Controllers;
 use Illuminate\Http\Request;
 use Cotizador\Direccion;
 use Cotizador\Empresa;
+use Session;
 class DireccionController extends Controller
 {
     /**
@@ -39,11 +40,16 @@ class DireccionController extends Controller
     {
         $this->validate($request,[
             'direccion_postal'=>'required|string',
-            'id_empresa'=>'required|numeric'
+            'id_empresa'=>'required|numeric',
+            'longitud'=>'required|numeric',
+            'latitud'=>'required|numeric',
             ]);
         $direccion=Direccion::create([
             'direccion_postal'=>$request->direccion_postal,
-            'id_empresa'=>$request->id_empresa]);
+            'id_empresa'=>$request->id_empresa,
+            'latitud'=>$request->latitud,
+            'longitud'=>$request->longitud
+            ]);
 
 
         $request->session()->flash('create','La direccion '.$direccion->direccion_postal.' ha sido creada satisfactoriamente');
@@ -69,7 +75,7 @@ class DireccionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('Direccion.edit',['empresas'=>Empresa::all(),'direccion'=>Direccion::find($id)]);
     }
 
     /**
@@ -81,7 +87,22 @@ class DireccionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'direccion_postal'=>'required|string',
+            'id_empresa'=>'required|numeric',
+            'longitud'=>'required|numeric',
+            'latitud'=>'required|numeric',
+        ]);
+        $direccion=Direccion::find($id);
+        $direccion->direccion_postal=$request->direccion_postal;
+        $direccion->id_empresa=$request->id_empresa;
+        $direccion->latitud=$request->latitud;
+        $direccion->longitud=$request->longitud;
+
+
+        $request->session()->flash('update','La dirección '.$direccion->direccion_postal.' ha sido modificada satisfactoriamente');
+        $direccion->save();
+        return redirect('admin/Direccion');
     }
 
     /**
@@ -93,10 +114,8 @@ class DireccionController extends Controller
     public function destroy(Request $request,$id)
     {
         $direccion=Direccion::find($id);
-        $request->session()->flash('delete','La direccion '.$direccion->direccion_postal.'  ha sido eliminada satisifactoriamente');
+        Session::flash('delete','La dirección '.$direccion->direccion_postal.' se ha eliminado satisfactoriamente');
         $direccion->delete();
-
-
         return redirect('admin/Direccion');
 
     }

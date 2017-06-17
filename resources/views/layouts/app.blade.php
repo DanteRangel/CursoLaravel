@@ -41,9 +41,27 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
+                    @if(!Auth::guest())
+                        @if(Auth::user()->tipo_usuario==1)
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="{{url('admin/Producto')}}" class="dropdown-item">Producto</a></li>
+                            <li><a href="{{url('admin/Empresa')}}" class="dropdown-item">Empresa</a></li>
+                            <li><a href="{{url('admin/User')}}" class="dropdown-item">Usuarios</a></li>
+                            <li><a href="{{url('admin/Direccion')}}" class="dropdown-item">Direcciones</a></li>
+                            <li><a href="{{url('admin/Marca')}}" class="dropdown-item">Marca</a></li>
+                            <li><a href="{{url('admin/Grupo')}}" class="dropdown-item">Grupo</a></li>
+                          </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('Cotizador')}}" class="nav-link">Cotizador</a>
+                        </li>
+
                     </ul>
+                    @endif
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -108,3 +126,4 @@
     @yield('js')
 </body>
 </html>
+
