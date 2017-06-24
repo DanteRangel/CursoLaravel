@@ -15,7 +15,9 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/angular',function(){
+	return view('angular');
+});
 //Route::get('User','UsuariosController@index');
 Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 	Route::resource('User','UsuariosController');
@@ -26,8 +28,13 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 	Route::resource('Producto','ProductController');
 	Route::resource('Direccion','DireccionController');
 });
-
+Route::post('getProductos','ProductController@find');
+Route::post('/addCar','CarritoController@addCar');
+Route::post('/getCar','CarritoController@getCar');
+Route::post('/deleteItem','CarritoController@deleteItem');
 Route::get('/Sesiones',function(){
+	
+	//return Auth::user();
 	return Session::all();
 }); 
 Route::get('/home', 'HomeController@index')->name('home');

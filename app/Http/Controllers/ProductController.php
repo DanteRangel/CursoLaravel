@@ -202,4 +202,11 @@ class ProductController extends Controller
         $producto->delete();
         return redirect('admin/Producto');
     }
+    public function find(Request $request){
+        $productos=Producto::where([
+                ['nombre','LIKE','%'.$request->nombre.'%'],
+                ['descripcion','LIKE','%'.$request->descripcion.'%']
+                ])->get();
+        return $productos;
+    }
 }
